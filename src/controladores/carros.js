@@ -1,5 +1,6 @@
 const pool = require('../conexao')
 
+
 const listarCarros = async (req, res) => {
 	try {
 		const { rows } = await pool.query('select * from carros')
@@ -96,4 +97,4 @@ module.exports = {
 	cadastrarCarro,
 	atualizarCarro,
 	excluirCarro,
-};
+}

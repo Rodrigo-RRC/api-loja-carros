@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+/* const jwt = require('jsonwebtoken')
 const pool = require('../conexao')
 const senhaJwt = require('../senhaJwt')
 
@@ -31,4 +31,4 @@ const verificarUsuarioLogado = async (req, res, next) => {
 	}
 }
 
-module.exports = verificarUsuarioLogado;
+module.exports = verificarUsuarioLogado; */
