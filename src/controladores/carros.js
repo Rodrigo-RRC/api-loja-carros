@@ -1,8 +1,18 @@
 const pool = require('../conexao')
-
+const jwt = require('jsonwebtoken')
+const senhaJwt = require('../senhaJwt')
 
 const listarCarros = async (req, res) => {
+
+	const { authorization } = req.headers
+	if (!authorization) {
+		return res.status(401).json({ mensagem: "Não autorizado" })
+	}
+	const token = authorization.split(' ')[1]
 	try {
+
+		const tokenUsuario = jwt.verify(token, senhaJwt)
+
 		const { rows } = await pool.query('select * from carros')
 
 		return res.json(rows)
@@ -13,8 +23,13 @@ const listarCarros = async (req, res) => {
 
 const detalharCarro = async (req, res) => {
 	const { id } = req.params
-
+	const { authorization } = req.headers
+	if (!authorization) {
+		return res.status(401).json({ mensagem: "Não autorizado" })
+	}
+	const token = authorization.split(' ')[1]
 	try {
+		const tokenUsuario = jwt.verify(token, senhaJwt)
 		const { rows, rowCount } = await pool.query(
 			'select * from carros where id = $1',
 			[id]
@@ -32,8 +47,13 @@ const detalharCarro = async (req, res) => {
 
 const cadastrarCarro = async (req, res) => {
 	const { modelo, marca, ano, cor, descricao } = req.body
-
+    const { authorization } = req.headers
+	if (!authorization) {
+		return res.status(401).json({ mensagem: "Não autorizado" })
+	}
+	const token = authorization.split(' ')[1]
 	try {
+		const tokenUsuario = jwt.verify(token, senhaJwt)
 		const { rows } = await pool.query(
 			'insert into carros (modelo, marca, ano, cor, descricao) values ($1, $2, $3, $4, $5) returning *',
 			[modelo, marca, ano, cor, descricao]
@@ -48,7 +68,7 @@ const cadastrarCarro = async (req, res) => {
 const atualizarCarro = async (req, res) => {
 	const { id } = req.params
 	const { modelo, marca, ano, cor, descricao } = req.body
-
+    
 	try {
 		const { rows, rowCount } = await pool.query(
 			'select * from carros where id = $1',
