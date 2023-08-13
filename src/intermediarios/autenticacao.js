@@ -1,6 +1,6 @@
-/* const jwt = require('jsonwebtoken')
-const pool = require('../conexao')
+const jwt = require('jsonwebtoken')
 const senhaJwt = require('../senhaJwt')
+const pool = require('../conexao')
 
 const verificarUsuarioLogado = async (req, res, next) => {
 	const { authorization } = req.headers
@@ -31,4 +31,4 @@ const verificarUsuarioLogado = async (req, res, next) => {
 	}
 }
 
-module.exports = verificarUsuarioLogado; */
+module.exports = verificarUsuarioLogado;
