@@ -47,13 +47,18 @@ const login = async (req, res) => {
 
         const { senha: _, ...usuarioLogado } = usuario.rows[0]
 
-        return res.json({usuario: usuarioLogado, token})
+        return res.json({ usuario: usuarioLogado, token })
     } catch (error) {
         return res.status(500).json({ mensagem: "Erro interno do servidor" });
     }
 }
 
+const obterPerfil = async (req, res) => {
+    return res.json(req.usuario)
+}
+
 module.exports = {
     cadastrarUsuario,
-    login
+    login,
+    obterPerfil
 }
